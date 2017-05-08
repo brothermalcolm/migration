@@ -16,7 +16,7 @@ year = datetime.date.today().strftime("%Y")
 month = datetime.date.today().strftime("%Y-%m")
 day = datetime.date.today().strftime("%Y-%m-%d")
 files = glob.glob("%s/StationsData_*/*/Converted to TXT/%s/%s/*%s.txt" % (root, year, month, day))
-load_sql = ("LOAD DATA LOCAL INFILE %s "
+load_sql = ("LOAD DATA LOCAL INFILE '%s' "
             "INTO TABLE %s " 
             "FIELDS TERMINATED BY '\t' " 
             "LINES TERMINATED BY '\n' "
@@ -30,6 +30,6 @@ for file in files:
     station = re.findall('\[([0-9]+)\]', file)[0]
     table = 'SIN' + station
     print(table)
-    cursor.execute(load_sql, (file, table))    
+    cursor.execute(load_sql % (file, table))    
     connection.commit()
 connection.close()
