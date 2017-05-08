@@ -17,7 +17,7 @@ month = datetime.date.today().strftime("%Y-%m")
 day = datetime.date.today().strftime("%Y-%m-%d")
 files = glob.glob("%s/StationsData_*/*/Converted to TXT/%s/%s/*%s.txt" % (root, year, month, day))
 load_sql = ("LOAD DATA LOCAL INFILE '%s' "
-            "INTO TABLE %s " 
+            "REPLACE INTO TABLE %s " 
             "FIELDS TERMINATED BY '\t' " 
             "LINES TERMINATED BY '\n' "
             "IGNORE 1 LINES; ")
