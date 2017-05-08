@@ -12,10 +12,7 @@ import connection
 
 # Search for files and paths for current date
 root = '/mnt/nas/CMS_Data'
-year = datetime.date.today().strftime("%Y")
-month = datetime.date.today().strftime("%Y-%m")
-day = datetime.date.today().strftime("%Y-%m-%d")
-files = glob.glob("%s/StationsData_*/*/Converted to TXT/%s/%s/*%s.txt" % (root, year, month, day))
+files = glob.glob("%s/StationsData_*/*/Converted to TXT/*/*/*.txt" % (root))
 load_sql = ("LOAD DATA LOCAL INFILE '%s' "
             "REPLACE INTO TABLE %s " 
             "FIELDS TERMINATED BY '\t' " 
@@ -33,4 +30,3 @@ for file in files:
     cursor.execute(load_sql % (file, table))    
     connection.commit()
 connection.close()
-
